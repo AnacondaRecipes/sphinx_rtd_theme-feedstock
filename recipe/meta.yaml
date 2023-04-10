@@ -12,10 +12,17 @@ source:
 build:
   number: 0
 
+requirements:
+host:
+  - pip
+  - python
+  - setuptools
+  - sphinx 5.0.2
+  - wheel
+
 outputs:
   - name: {{ name }}
-    build:
-      script: python -m pip install . --no-deps --no-build-isolation -vv
+    script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
     requirements:
       host:
         - pip
@@ -48,6 +55,7 @@ outputs:
         - sphinx 5.0.2
         - wheel
       run:
+        - python
         - {{ pin_subpackage(name, exact=True) }}
     test:
       imports:
@@ -70,3 +78,5 @@ extra:
   recipe-maintainers:
     - chohner
     - SylvainCorlay
+  skip-lints:
+    - missing_pip_check
