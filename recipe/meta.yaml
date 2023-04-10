@@ -2,7 +2,7 @@
 {% set name = "sphinx_rtd_theme" %}
 
 package:
-  name: {{ name }}
+  name: {{ name }}-split
   version: {{ version }}
 
 source:
@@ -21,7 +21,7 @@ outputs:
         - pip
         - python
         - setuptools
-        - sphinx >=1.6,<6
+        - sphinx 5.0.2
         - wheel
       run:
         - python
@@ -40,7 +40,11 @@ outputs:
       noarch: python
     requirements:
       host:
+        - pip
         - python
+        - setuptools
+        - sphinx 5.0.2
+        - wheel
       run:
         - {{ pin_subpackage(name, exact=True) }}
     test:
@@ -50,7 +54,7 @@ outputs:
 about:
   home: https://github.com/readthedocs/sphinx_rtd_theme/
   license: MIT
-  licanse_family: MIT
+  license_family: MIT
   license_file: LICENSE
   summary: Sphinx theme for readthedocs.org
   description: |
