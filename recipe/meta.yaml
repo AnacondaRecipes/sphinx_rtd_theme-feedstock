@@ -22,7 +22,7 @@ host:
 
 outputs:
   - name: {{ name }}
-    script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+    script: python -m pip install . --no-deps --no-build-isolation -vv
     requirements:
       host:
         - pip
