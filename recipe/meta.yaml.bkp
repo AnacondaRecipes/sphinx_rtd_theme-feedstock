@@ -1,46 +1,63 @@
-{% set version = "1.2.0" %}
-{% set sha256 = "a0d8bd1a2ed52e0b338cbe19c4b2eef3c5e7a048769753dac6a9f059c7b641b8" %}
+{% set version = "1.1.1" %}
 {% set name = "sphinx_rtd_theme" %}
 
 package:
-  name: {{ name }}
+  name: {{ name }}-split
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: 6146c845f1e1947b3c3dd4432c28998a1693ccc742b4f9ad7c63129f0757c103
 
 build:
   number: 0
+  noarch: python
+
+requirements:
+host:
+  - pip
+  - python
+  - setuptools
+  - sphinx 5.0.2
+  - wheel
 
 outputs:
   - name: {{ name }}
-    build:
-      script: python -m pip install . --no-deps -vv
-      noarch: python
-
+    script: build_base.bat  # [win]
+    script: build_base.sh   # [not win]
     requirements:
       host:
         - pip
-        - python >=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*
+        - python
         - setuptools
-        - sphinx >=1.6,<7
+        - sphinx 5.0.2
+        - wheel
       run:
-        - python >=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*
-        - sphinx >=1.6,<7
+        - python
+        - sphinx >=1.6,<6
+        # Bump docutils to <0.19 instead of <0.18, see https://github.com/readthedocs/sphinx_rtd_theme/blob/master/docs/changelog.rst#dependency-changes-1
         - docutils <0.19
-        - sphinxcontrib-jquery >=2.0.0,!=3.0.0  # [py>=3]
-
     test:
       imports:
         - sphinx_rtd_theme
+      # Disable pip check because of sphinx-rtd-theme 1.1.1 has requirement docutils<0.18, but you have docutils 0.18.1.
+      #requires:
+      #  - pip
+      #commands:
+      #  - pip check
 
   - name: sphinx-rtd-theme
     build:
       noarch: python
     requirements:
+      host:
+        - pip
+        - python
+        - setuptools
+        - sphinx 5.0.2
+        - wheel
       run:
+        - python
         - {{ pin_subpackage(name, exact=True) }}
     test:
       imports:
@@ -49,15 +66,18 @@ outputs:
 about:
   home: https://github.com/readthedocs/sphinx_rtd_theme/
   license: MIT
+  license_family: MIT
   license_file: LICENSE
-  summary: ReadTheDocs.org theme for Sphinx, 2013 version.
-
+  summary: Sphinx theme for readthedocs.org
   description: |
     This is a mobile-friendly sphinx theme made for readthedocs.org. It's currently in
     development there and includes some rtd variable checks that can be ignored if you're
     just trying to use it on your project outside of that site.
   dev_url: https://github.com/readthedocs/sphinx_rtd_theme/
+  doc_url: https://sphinx-rtd-theme.readthedocs.io/
 
 extra:
   recipe-maintainers:
     - ianaobi
+  skip-lints:
+    - missing_pip_check
