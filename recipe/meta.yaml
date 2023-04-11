@@ -79,5 +79,5 @@ about:
 extra:
   recipe-maintainers:
     - ianaobi
-  skip-lints:
-    - missing_pip_check
+#  skip-lints:
+#    - missing_pip_check
