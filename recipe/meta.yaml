@@ -12,14 +12,6 @@ source:
 build:
   number: 0
 
-requirements:
-host:
-  - pip
-  - python
-  - setuptools
-  - sphinx >=1.6,<7
-  - wheel
-
 outputs:
   - name: {{ name }}
     script: build_base.bat  # [win]
@@ -29,7 +21,6 @@ outputs:
         - pip
         - python
         - setuptools
-        - sphinx >=1.6,<7
         - wheel
       run:
         - python
