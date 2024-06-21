@@ -11,6 +11,7 @@ source:
 
 build:
   number: 0
+  noarch: python
 
 outputs:
   - name: {{ name }}
@@ -63,7 +64,6 @@ about:
 
 extra:
   recipe-maintainers:
-    - chohner
-    - SylvainCorlay
+    - ianaobi
   skip-lints:
     - missing_pip_check
