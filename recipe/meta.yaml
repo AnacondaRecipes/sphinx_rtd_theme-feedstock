@@ -1,4 +1,4 @@
-{% set version = "1.2.0" %}
+{% set version = "2.0.0" %}
 {% set name = "sphinx_rtd_theme" %}
 
 package:
@@ -7,10 +7,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: a0d8bd1a2ed52e0b338cbe19c4b2eef3c5e7a048769753dac6a9f059c7b641b8
+  sha256: bd5d7b80622406762073a04ef8fadc5f9151261563d47027de09910ce03afe6b
 
 build:
   number: 0
+  skip: True  # [py<36]
 
 outputs:
   - name: {{ name }}
@@ -24,9 +25,9 @@ outputs:
         - wheel
       run:
         - python
-        - sphinx >=1.6,<7
-        - docutils <0.19
-        - sphinxcontrib-jquery >=2.0.0,!=3.0.0  # [py>=3]
+        - sphinx >=5,<8
+        - docutils <0.21
+        - sphinxcontrib-jquery >=4,<5
     test:
       imports:
         - sphinx_rtd_theme
