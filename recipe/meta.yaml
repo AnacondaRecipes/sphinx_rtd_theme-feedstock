@@ -1,4 +1,4 @@
-{% set version = "3.0.2" %}
+{% set version = "3.1.0" %}
 {% set name = "sphinx_rtd_theme" %}
 
 package:
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: b7457bc25dda723b20b086a670b9953c859eab60a2a03ee8eb2bb23e176e5f85
+  sha256: b44276f2c276e909239a4f6c955aa667aaafeb78597923b1c60babc76db78e4c
 
 build:
   number: 0
@@ -25,16 +25,20 @@ outputs:
         - wheel
       run:
         - python
-        - sphinx >=6,<9
-        - docutils >0.18,<0.22
+        - sphinx >=6,<10
+        - docutils >0.18,<0.23
         - sphinxcontrib-jquery >=4,<5
     test:
+      source_files:
+        - tests
       imports:
         - sphinx_rtd_theme
       requires:
         - pip
+        - pytest
       commands:
         - pip check
+        - pytest -v tests
 
   - name: sphinx-rtd-theme
     build:
@@ -50,7 +54,7 @@ outputs:
         - sphinx_rtd_theme
 
 about:
-  home: https://github.com/readthedocs/sphinx_rtd_theme/
+  home: https://github.com/readthedocs/sphinx_rtd_theme
   license: MIT
   license_family: MIT
   license_file: LICENSE
@@ -59,8 +63,8 @@ about:
     This is a mobile-friendly sphinx theme made for readthedocs.org. It's currently in
     development there and includes some rtd variable checks that can be ignored if you're
     just trying to use it on your project outside of that site.
-  dev_url: https://github.com/readthedocs/sphinx_rtd_theme/
-  doc_url: https://sphinx-rtd-theme.readthedocs.io/
+  dev_url: https://github.com/readthedocs/sphinx_rtd_theme
+  doc_url: https://sphinx-rtd-theme.readthedocs.io
 
 extra:
   recipe-maintainers:
