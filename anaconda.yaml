@@ -2,3 +2,6 @@ anaconda_config_version: 1
 upstream_sources:
   - pypi:
       identifier: sphinx_rtd_theme
+    packages:
+      - sphinx-rtd-theme
+      - sphinx_rtd_theme
